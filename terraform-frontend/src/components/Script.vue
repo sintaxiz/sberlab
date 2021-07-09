@@ -13,7 +13,7 @@
 <script>
 import axios from "axios"
 const axios_instance = axios.create({
-  baseURL: 'http://localhost:9090/v1/validate',
+  baseURL: process.env.VUE_APP_BACKEND_API
 });
 export default {
   components: {

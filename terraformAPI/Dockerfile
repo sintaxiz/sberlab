@@ -1,9 +1,9 @@
-FROM alpine:latest
+FROM golang:1.16-alpine
 
 WORKDIR /app
 
-EXPOSE 9090
+COPY ./ .
 
-ADD ./restfulSample /app/
+RUN go build
 
-ENTRYPOINT ["/app/restfulSample"]
+CMD [ "./terraformAPI" ]

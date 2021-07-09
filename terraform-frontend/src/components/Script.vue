@@ -13,7 +13,7 @@
 <script>
 import axios from "axios"
 const axios_instance = axios.create({
-  baseURL: process.env.VUE_APP_BACKEND_API
+  baseURL: process.env.VUE_APP_BACKEND_IP
 });
 export default {
   components: {
@@ -32,11 +32,11 @@ export default {
       axios_instance.get().then(result => {
       console.log(result.data)
       
-      this.serverAnswer = "server: " + result.data
+      this.serverAnswer = "server: " + result.data + process.env.VUE_APP_BACKEND_IP
     }, error => {
       console.error(error); 
       this.serverAnswer = "Can not connect to server :( "
-      this.serverError = error.message
+      this.serverError = error.message + process.env.VUE_APP_BACKEND_IP
     });
     }
   }

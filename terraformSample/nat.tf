@@ -38,8 +38,19 @@ resource "sbercloud_nat_dnat_rule" "dnat_2" {
   external_service_port = 2021
 }
 
-# resource "sbercloud_nat_snat_rule" "snat_1" {
-#   nat_gateway_id = sbercloud_nat_gateway.nat_1.id
-#   subnet_id     = sbercloud_vpc_subnet.subnet_v1.subnet_id
-#   floating_ip_id = "0a166fc5-a904-42fb-b1ef-cf18afeeddca"
-# }
+# Web-Requests will be send to first node
+resource "sbercloud_nat_dnat_rule" "dnat_for_server" {
+  floating_ip_id        = sbercloud_vpc_eip.eipNAT.id
+  nat_gateway_id        = sbercloud_nat_gateway.nat_1.id
+  private_ip            = sbercloud_compute_instance.tf-test-node1.access_ip_v4
+  protocol              = "tcp"
+  internal_service_port = 80
+  external_service_port = 8080
+}
+
+
+resource "sbercloud_nat_snat_rule" "snat_1" {
+  nat_gateway_id = sbercloud_nat_gateway.nat_1.id
+  subnet_id     = sbercloud_vpc_subnet.subnet_v1.id
+  floating_ip_id = sbercloud_vpc_eip.eipNAT.id
+}

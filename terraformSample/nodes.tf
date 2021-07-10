@@ -1,47 +1,49 @@
-# Create nodes
-data "sbercloud_availability_zones" "myaz" {}
-
-data "sbercloud_compute_flavors" "myflavor" {
-  availability_zone = data.sbercloud_availability_zones.myaz.names[0]
-  performance_type  = "normal"
-  cpu_core_count    = 2
-  memory_size       = 4
+variable "numberOfBackendServers" {
+  description = "Secret Key to access SberCloud"
+  sensitive = true
 }
 
-data "sbercloud_images_image" "ubuntu" {
-  name        = "Ubuntu 18.04 server 64bit"
+data "sbercloud_images_image" "ubuntu_image" {
+  name = "Ubuntu 20.04 server 64bit"
   most_recent = true
 }
 
+resource "sbercloud_compute_instance" "ecs_01" {
+  count = var.numberOfBackendServers
 
-# Node 1
-resource "sbercloud_compute_instance" "tf-test-node1" {
-  name              = "tf-test-node1"
-  image_id          = data.sbercloud_images_image.ubuntu.id
-  flavor_id         = data.sbercloud_compute_flavors.myflavor.ids[0]
-  security_groups   = ["default"]
+  name = "ecs-${count.index}"
+  image_id = data.sbercloud_images_image.ubuntu_image.id
+  flavor_id = "s6.large.2"
+  security_groups = [sbercloud_networking_secgroup.sg_01.name]
   availability_zone = "ru-moscow-1a"
+  key_pair = "KeyPair-default"
+
+  user_data = file("./init.sh")
+
   system_disk_type = "SAS"
-  user_data        = "#!/bin/bash\necho \nHello, the time is now $(date -R)\n | tee /root/output.txt"
-  key_pair          = "KeyPair-default"
+  system_disk_size = 20
+
+
   network {
-    uuid = sbercloud_vpc_subnet.subnet_v1.id
+    uuid = sbercloud_vpc_subnet.subnet_01.id
   }
 }
 
-# Node 2
-resource "sbercloud_compute_instance" "tf-test-node2" {
-  name              = "tf-test-node2"
-  image_id          = data.sbercloud_images_image.ubuntu.id
-  flavor_id         = data.sbercloud_compute_flavors.myflavor.ids[0]
-  security_groups   = ["default"]
+resource "sbercloud_compute_instance" "ecs_master" {
+  name = "ecs-master"
+  image_id = data.sbercloud_images_image.ubuntu_image.id
+  flavor_id = "s6.large.2"
+  security_groups = [sbercloud_networking_secgroup.sg_01.name]
   availability_zone = "ru-moscow-1a"
+  key_pair = "KeyPair-default"
+
+  user_data = file("./init.sh")
+
   system_disk_type = "SAS"
-  key_pair          = "KeyPair-default"
-  user_data         = file("${path.module}/init.sh")
+  system_disk_size = 20
+
 
   network {
-    uuid = sbercloud_vpc_subnet.subnet_v1.id
+    uuid = sbercloud_vpc_subnet.subnet_01.id
   }
 }
-

@@ -10,7 +10,7 @@
 #   }
 #   bandwidth {
 #     name        = "tf-test-ip"
-#     size        = 8
+#     size        = 5
 #     share_type  = "PER"
 #     charge_mode = "traffic"
 #   }

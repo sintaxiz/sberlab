@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: backend
+  labels:
+    app: tf-backend
+    purpose: backend
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      purpose: backend
+  template:
+    metadata:
+      labels:
+        purpose: backend
+    spec:
+      containers:
+      - name: hello
+        image: sintaxiz/tf-backend

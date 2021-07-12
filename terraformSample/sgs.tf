@@ -33,6 +33,18 @@ locals {
       protocol = "tcp",
       port = 22,
       source = "0.0.0.0/0"
+    },
+    kube-api-rule = {
+      description = "Allow kube-api ",
+      protocol = "tcp",
+      port = 6443,
+      source = "0.0.0.0/0"
+    },
+    kublr-rule = {
+      description = "Allow kublr ",
+      protocol = "tcp",
+      port = 11251,
+      source = "0.0.0.0/0"
     }
   }
 }

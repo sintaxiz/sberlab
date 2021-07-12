@@ -11,11 +11,10 @@
 </template>
 
 <script>
-import axios from "axios"
-const axios_instance = axios.create({
-  baseURL: process.env.VUE_APP_BACKEND_IP
-});
+import http from "../http-common";
+
 export default {
+  name : "validate-script",
   components: {
     
   },
@@ -29,7 +28,7 @@ export default {
   },
   methods: {
     askServer() {
-      axios_instance.get().then(result => {
+      http.get().then(result => {
       console.log(result.data)
       
       this.serverAnswer = "server: " + result.data + process.env.VUE_APP_BACKEND_IP
@@ -42,3 +41,12 @@ export default {
   }
 }
 </script>
+
+<style> 
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+</style>

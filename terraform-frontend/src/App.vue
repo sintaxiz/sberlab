@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <h1>Here you can run terraform scripts! (actually only validate now...)</h1>
+    <upload-file/>
     <Script/>
   </div>
 </template>
 
 <script>
 import Script from './components/Script.vue'
+import UploadFile from './components/UploadFile.vue'
 export default {
   components: {
-    Script
+    Script,
+    UploadFile
   }
 }
 </script>
@@ -29,5 +32,11 @@ export default {
 }
 h1 {
   text-align: center;
+}
+
+
+#all {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  color: #e42a2a;
 }
 </style>

@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	answer "terraformAPI/apiSample/v1/answer"
+	"terraformAPI/apiSample/v1/upload"
 
 	"github.com/emicklei/go-restful"
 	"github.com/juju/loggo"
@@ -30,6 +31,7 @@ func (api *SampleAPI) Register(wsContainer *restful.Container, insecure bool) er
 	wsContainer.Filter(corsFilter)
 
 	answer.NewResource().Register(wsContainer)
+	upload.NewResource().Register(wsContainer)
 
 	return nil
 }

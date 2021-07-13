@@ -4,7 +4,7 @@ class UploadScriptsService {
   upload(file, onUploadProgress) {
     let formData = new FormData();
 
-    formData.append("file", file);
+    formData.append("myScript", file);
 
     return http.post("/upload", formData, {
       headers: {

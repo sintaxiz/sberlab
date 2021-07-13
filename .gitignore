@@ -1,2 +1,3 @@
-terraformSample/auth.auto.tfvars
 terraform-main-infrastracture/auth.auto.tfvars
+terraform-main-infrastracture/terraform.tfstate
+terraform-main-infrastracture/terraform.tfstate.backup

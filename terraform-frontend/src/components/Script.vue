@@ -1,12 +1,8 @@
 <template>
-  <div>
-    <div>
-      <button v-on:click="askServer">Validate script</button> 
-    </div>
-    <span>{{serverAnswer}} </span>
-  <div>
+  <div class="d-flex flex-column">
+    <button type="button" class="btn btn-primary"  v-on:click="validateScript">Validate script</button>
+    <p class="text-left"> {{serverAnswer}} </p>
     <span>{{serverError}} </span>
-  </div>
   </div>
 </template>
 
@@ -27,7 +23,7 @@ export default {
   created() {
   },
   methods: {
-    askServer() {
+    validateScript() {
       http.get().then(result => {
       console.log(result.data)
       

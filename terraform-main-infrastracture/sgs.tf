@@ -45,6 +45,12 @@ locals {
       protocol = "tcp",
       port = 11251,
       source = "0.0.0.0/0"
+    },
+     np-service-rule = {
+      description = "Allow np service work ",
+      protocol = "tcp",
+      port = 31234,
+      source = "0.0.0.0/0"
     }
   }
 }

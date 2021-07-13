@@ -1,81 +1,111 @@
 <template>
   <div>
-    <div v-if="currentFile" class="progress">
-      <div
-        class="progress-bar progress-bar-info progress-bar-striped"
-        role="progressbar"
-        :aria-valuenow="progress"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        :style="{ width: progress + '%' }"
+    <div v-if="progressInfos">
+      <div class="mb-2"
+        v-for="(progressInfo, index) in progressInfos"
+        :key="index"
       >
-        {{ progress }}%
+        <span>{{progressInfo.fileName}}</span>
+        <div class="progress">
+          <div class="progress-bar progress-bar-info"
+            role="progressbar"
+            :aria-valuenow="progressInfo.percentage"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            :style="{ width: progressInfo.percentage + '%' }"
+          >
+            {{progressInfo.percentage}}%
+          </div>
+        </div>
       </div>
     </div>
 
     <label class="btn btn-default">
-      <input type="file" ref="file" @change="selectFile" />
+      <input type="file" multiple @change="selectFile" />
     </label>
 
-    <button class="btn btn-success" :disabled="!selectedFiles" @click="upload">
+    <button class="btn btn-success"
+      :disabled="!selectFile"
+      @click="uploadFiles"
+    >
       Upload
     </button>
 
-    <div class="alert alert-light" role="alert">{{ message }}</div>
+    <div v-if="message" class="alert alert-light" role="alert">
+      <ul>
+        <li v-for="(ms, i) in message.split('\n')" :key="i">
+          {{ ms }}
+        </li>
+      </ul>
+    </div>
 
-    <!-- <div class="card">
+    <div class="card">
       <div class="card-header">List of Files</div>
       <ul class="list-group list-group-flush">
-        <li
-          class="list-group-item"
+        <li class="list-group-item"
           v-for="(file, index) in fileInfos"
           :key="index"
         >
           <a :href="file.url">{{ file.name }}</a>
         </li>
       </ul>
-    </div> -->
+    </div>
   </div>
 </template>
 
+
 <script>
+import UploadService from "../services/UploadScriptsService";
+
 
 export default {
-  name: "upload-files",
+  name: "upload-scripts",
   data() {
     return {
-      selectedFiles: undefined,
-      currentFile: undefined,
-      progress: 0,
+      selectedScripts: undefined,
+      progressInfos: [],
       message: "",
+      scriptInfos: [],
     };
   },
   methods: {
-    selectFile() {
-      this.selectedFile = this.$refs.file.files;
+   selectFile() {
+      this.progressInfos = [];
+      this.selectedScripts = event.target.files;
     },
-   upload() {
-      this.progress = 0;
+    uploadFiles() {
+      this.message = "";
 
-      this.currentFile = this.selectedFiles.item(0);
-    //   UploadService.upload(this.currentFile, event => {
-    //     this.progress = Math.round((100 * event.loaded) / event.total);
-    //   })
-    //     .then(response => {
-    //       this.message = response.data.message;
-    //       //return UploadService.getFiles();
-    //     })
-    //     .then(files => {
-    //       this.fileInfos = files.data;
-    //     })
-    //     .catch(() => {
-    //       this.progress = 0;
-    //       this.message = "Could not upload the file!";
-    //       this.currentFile = undefined;
-    //     });
+      for (let i = 0; i < this.selectedScripts.length; i++) {
+        this.upload(i, this.selectedScripts[i]);
+      }
+    },
+     upload(idx, script) {
+      this.progressInfos[idx] = { percentage: 0, scriptname: script.name };
 
-      this.selectedFiles = undefined;
-    }
+      UploadService.upload(script, (event) => {
+        this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
+      })
+        .then((response) => {
+          let prevMessage = this.message ? this.message + "\n" : "";
+          this.message = prevMessage + response.data.message;
+
+          return UploadService.getFiles();
+        })
+        .then((scripts) => {
+          this.scriptsInfos = scripts.data;
+        })
+        .catch(() => {
+          this.progressInfos[idx].percentage = 0;
+          this.message = "Could not upload the file:" + script.name;
+        });
+    },
+    // calling when component adding to DOM
+    mounted() {
+    UploadService.getFiles().then((response) => {
+      this.fileInfos = response.data;
+    });
+  }
   }
 };
 </script>

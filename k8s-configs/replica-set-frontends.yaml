@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend
+  labels:
+    app: tf-frontend
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: tf-frontend
+  template:
+    metadata:
+      labels:
+        app: tf-frontend
+    spec:
+      containers:
+      - name: hello
+        image: sintaxiz/tf-frontend

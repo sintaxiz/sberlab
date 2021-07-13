@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-class UploadScriptService {
+class UploadScriptsService {
   upload(file, onUploadProgress) {
     let formData = new FormData();
 
@@ -15,8 +15,8 @@ class UploadScriptService {
   }
 
   getFiles() {
-    return http.get("/script");
+    return http.get("/scripts");
   }
 }
 
-export default new UploadScriptService();
+export default new UploadScriptsService();

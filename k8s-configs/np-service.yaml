@@ -1,0 +1,13 @@
+# Node Port: ClusterIP + open ports on nodes and all requests on this ports will redirect to service
+apiVersion: v1
+kind: Service
+metadata:
+  name: np-tf-backend
+spec:
+  type: NodePort # by default ClusterAPI
+  selector:
+    app: tf-backend
+  ports:
+    - port: 9090
+      targetPort: 9090
+      nodePort: 31234

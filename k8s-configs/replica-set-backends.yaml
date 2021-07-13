@@ -9,10 +9,12 @@ spec:
   replicas: 5
   selector:
     matchLabels:
+      app: tf-backend
       purpose: backend
   template:
     metadata:
       labels:
+        app: tf-backend
         purpose: backend
     spec:
       containers:

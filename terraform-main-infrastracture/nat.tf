@@ -66,3 +66,13 @@ resource "sbercloud_nat_dnat_rule" "dnat_for_kuberapi" {
   internal_service_port = 11251
   external_service_port = 11251
 }
+
+resource "sbercloud_nat_dnat_rule" "dnat_for_nodeport_service" {
+  floating_ip_id = sbercloud_vpc_eip.nat_eip.id
+  nat_gateway_id = sbercloud_nat_gateway.nat_01.id
+  private_ip = sbercloud_compute_instance.ecs_master.access_ip_v4
+  protocol = "tcp"
+  internal_service_port = 31234
+  external_service_port = 31234
+}
+

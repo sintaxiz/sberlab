@@ -51,6 +51,18 @@ locals {
       protocol = "tcp",
       port = 31234,
       source = "0.0.0.0/0"
+    },
+    np-backend-service-rule = {
+      description = "Allow np service work ",
+      protocol = "tcp",
+      port = 31333,
+      source = "0.0.0.0/0"
+    },
+      tf-api-rule = {
+      description = "Allow tf api",
+      protocol = "tcp",
+      port = 8080,
+      source = "0.0.0.0/0"
     }
   }
 }

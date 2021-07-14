@@ -17,3 +17,6 @@ spec:
       containers:
       - name: hello
         image: sintaxiz/tf-frontend
+        env:
+        - name: API_BASE_URL
+          value: "http://178.170.195.175:8080/"

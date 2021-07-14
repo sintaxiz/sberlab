@@ -24,14 +24,14 @@ export default {
   },
   methods: {
     validateScript() {
-      http.get().then(result => {
+      http.get("/v1/validate").then(result => {
       console.log(result.data)
       
-      this.serverAnswer = "server: " + result.data + process.env.VUE_APP_BACKEND_IP
+      this.serverAnswer = "server: " + result.data
     }, error => {
       console.error(error); 
       this.serverAnswer = "Can not connect to server :( "
-      this.serverError = error.message + process.env.VUE_APP_BACKEND_IP
+      this.serverError = error.message + " " + process.env.VUE_APP_BACKEND_IP
     });
     }
   }

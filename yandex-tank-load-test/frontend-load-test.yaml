@@ -1,0 +1,15 @@
+overload:
+  enabled: true
+  package: yandextank.plugins.DataUploader
+  token_file: "token.txt"
+phantom:
+  address: 178.170.195.175:31234 # [Target's address]:[target's port]
+  uris:
+    - "/"
+  load_profile:
+    load_type: rps # schedule load by defining requests per second
+    schedule: line(1, 10, 10)
+console:
+  enabled: true # enable console output
+telegraf:
+  enabled: false # let's disable telegraf monitoring for the first time

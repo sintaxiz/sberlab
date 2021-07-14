@@ -1,4 +1,10 @@
 terraform-main-infrastracture/auth.auto.tfvars
 terraform-main-infrastracture/terraform.tfstate
 terraform-main-infrastracture/terraform.tfstate.backup
+
 terraformAPI/terraformAPI
+terraformAPI/temp-scripts
+
+yandex-tank-load-test/logs
+yandex-tank-load-test/upload-post-test.yaml
+yandex-tank-load-test/token.txt

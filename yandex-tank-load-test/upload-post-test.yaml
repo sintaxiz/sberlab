@@ -4,6 +4,7 @@ overload:
   token_file: "token.txt" 
 phantom:
   address: 178.170.195.175:8080 # [Target's address]:[target's port]
+  ammo_type: uripost
   load_profile:
     load_type: rps # schedule load by defining requests per second
     schedule: const(1, 1m)

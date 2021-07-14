@@ -20,9 +20,7 @@
       </div>
     </div>
 
-    <label class="btn btn-default">
       <input type="file" multiple @change="selectFile" />
-    </label>
 
     <button class="btn btn-success"
       :disabled="!selectFile"
@@ -38,7 +36,7 @@
         </li>
       </ul>
     </div>
-
+<!-- 
     <div class="card">
       <div class="card-header">List of Files</div>
       <ul class="list-group list-group-flush">
@@ -49,7 +47,7 @@
           <a :href="file.url">{{ file.name }}</a>
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -90,7 +88,7 @@ export default {
           let prevMessage = this.message ? this.message + "\n" : "";
           this.message = prevMessage + response.data.message;
 
-          return UploadService.getFiles();
+          return 
         })
         .then((scripts) => {
           this.scriptsInfos = scripts.data;

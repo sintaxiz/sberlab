@@ -2,6 +2,7 @@ package upload
 
 import (
 	"io/ioutil"
+	"net/http"
 
 	"github.com/emicklei/go-restful"
 	"github.com/juju/loggo"
@@ -41,7 +42,7 @@ func (r *Resource) UploadScript(request *restful.Request, response *restful.Resp
 	logger.Infof("Script size: %+v", handler.Size)
 	logger.Infof("MIME Header: %+v\n", handler.Header)
 
-	tmpScript, err := ioutil.TempFile("temp-scripts", "upload-*.txt")
+	tmpScript, err := ioutil.TempFile("temp-scripts", "script-*.txt")
 	if err != nil {
 		logger.Errorf("Can not create temp file for script: %s", err)
 		return
@@ -55,4 +56,6 @@ func (r *Resource) UploadScript(request *restful.Request, response *restful.Resp
 	tmpScript.Write(fileBytes)
 	logger.Infof("Successfully loading a script")
 
+	// form response
+	response.WriteHeaderAndEntity(http.StatusOK, "Script successfully loaded: "+handler.Filename)
 }

@@ -1,6 +1,8 @@
 <template>
   <div class="d-flex flex-column">
-    <button type="button" class="btn btn-primary"  v-on:click="validateScript">Validate script</button>
+    <div class="mb-5"> 
+      <button type="button" class="btn btn-primary btn-lg px-4  "  v-on:click="validateScript">Validate script</button> 
+      </div>
     <p class="text-left"> {{serverAnswer}} </p>
     <span>{{serverError}} </span>
   </div>

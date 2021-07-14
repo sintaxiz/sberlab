@@ -1,6 +1,7 @@
 <template>
-  <div class="d-flex flex-column">
-    <h1 class="display-1">Here you can load scripts and run them remotely</h1>
+  <div class="col-lg-8 mx-auto p-3 py-md-5">
+    <h1>Here you can load scripts and run them remotely</h1>
+    <p class="fs-5 col-md-8"> Just load some .tf configs to validate them! </p>
     <upload-file/>
     <Script/>
   </div>

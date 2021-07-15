@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nfs-backend
+  labels:
+    app: tf-backend
+    purpose: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tf-backend
+      purpose: backend
+  template:
+    metadata:
+      labels:
+        app: tf-backend
+        purpose: backend
+    spec:
+      containers:
+      - name: backend
+        image: sintaxiz/tf-backend
+        volumeMounts:
+        - name: script-volume
+          mountPath: "/scripts"
+      - name: manager
+        image: sintaxiz/tf-manager
+        volumeMounts:
+        - name: script-volume
+          mountPath: "/scripts"
+      volumes:
+      - name: script-volume
+        nfs:
+          server: 10.10.10.12
+          path: /nfs/scripts

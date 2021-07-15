@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-deployment
+  labels:
+    app: tf-frontend
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: tf-frontend
+  template:
+    metadata:
+      labels:
+        app: tf-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: sintaxiz/tf-frontend
+        env:
+        - name: API_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+                name: front-config
+                key: backend-host
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: front-config

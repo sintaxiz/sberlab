@@ -26,3 +26,4 @@ samples/restful-sample/restfulSample
 terraform-backend/terraformAPI
 terraform-manager/terraformManager
 terraform-manager/test/terraform
+terraform-backend/temp-scripts

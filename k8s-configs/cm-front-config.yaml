@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: front-config
+data:
+  backend-host: "http://178.170.195.175:8080"
+         

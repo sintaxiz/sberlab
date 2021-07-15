@@ -19,4 +19,15 @@ spec:
         image: sintaxiz/tf-frontend
         env:
         - name: API_BASE_URL
-          value: "http://178.170.195.175:8080/"
+          valueFrom:
+            configMapKeyRef:
+                name: front-config
+                key: backend-host
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: front-config

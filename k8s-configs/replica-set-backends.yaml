@@ -18,5 +18,7 @@ spec:
         purpose: backend
     spec:
       containers:
-      - name: hello
+      - name: backend
         image: sintaxiz/tf-backend
+      - name: manager
+        image: sintaxiz/tf-manager

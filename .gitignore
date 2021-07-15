@@ -20,3 +20,9 @@ terraform-main-infrastracture/terraform.tfstate
 terraform-main-infrastracture/terraform.tfstate.backup
 terraformAPI/terraformAPI
 terraform-frontend/.env
+samples/cobra-sample/cloudmanager
+samples/cobra-sample/cloudmanager.json
+samples/restful-sample/restfulSample
+terraform-backend/terraformAPI
+terraform-manager/terraformManager
+terraform-manager/test/terraform

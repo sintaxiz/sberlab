@@ -2,7 +2,6 @@ package validate
 
 import (
 	"net/http"
-	"terraformManager/terraform"
 
 	restful "github.com/emicklei/go-restful"
 	"github.com/juju/loggo"
@@ -36,26 +35,25 @@ func (r *Resource) Register(container *restful.Container) *Resource {
 
 func (c *Resource) validateConfig(request *restful.Request, response *restful.Response) {
 	logger.Infof("Validating config...")
-
-	config := &Config{}
-	err := request.ReadEntity(config)
-
-	var terraform = terraform.Terraform{}
-	terraform.AddScript(config.ConfigText)
-
-	if err != nil {
-		logger.Errorf("Cannot read body %v", err)
-		response.WriteHeaderAndEntity(http.StatusBadRequest, "Can not read request body")
-		return
-	}
-
-	validationAnswer, err := terraform.Validate()
-	if err != nil {
-		logger.Errorf("Terraform can not validate: ", err.Error())
-		response.WriteHeaderAndEntity(http.StatusBadGateway, "")
-		return
-	}
-	logger.Infof("Send validation answer: %s", validationAnswer)
-	//response.WriteAsJson(validationAnswer)
 	response.WriteHeaderAndEntity(http.StatusOK, "feature in development...")
+	// config := &Config{}
+	// err := request.ReadEntity(config)
+
+	// var terraform = terraform.Terraform{}
+	// terraform.AddScript(config.ConfigText)
+
+	// if err != nil {
+	// 	logger.Errorf("Cannot read body %v", err)
+	// 	response.WriteHeaderAndEntity(http.StatusBadRequest, "Can not read request body")
+	// 	return
+	// }
+
+	// //validationAnswer, err := terraform.Validate()
+	// if err != nil {
+	// 	logger.Errorf("Terraform can not validate: ", err.Error())
+	// 	//response.WriteHeaderAndEntity(http.StatusBadGateway, "")
+	// 	return
+	// }
+	//logger.Infof("Send validation answer: %s", validationAnswer)
+	//response.WriteAsJson(validationAnswer)
 }

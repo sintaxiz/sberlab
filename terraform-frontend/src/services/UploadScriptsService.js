@@ -13,10 +13,6 @@ class UploadScriptsService {
       onUploadProgress
     });
   }
-
-  getFiles() {
-    return http.get("/scripts");
-  }
 }
 
 export default new UploadScriptsService();

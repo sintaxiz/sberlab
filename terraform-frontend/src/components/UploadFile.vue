@@ -84,18 +84,19 @@ export default {
       UploadService.upload(script, (event) => {
         this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
       })
-        .then((response) => {
-          let prevMessage = this.message ? this.message + "\n" : "";
-          this.message = prevMessage + response.data.message;
+        .then(() => {
+          if (idx != 0) {
+          this.message += script.name + " ";
 
-          return 
+          } else {
+          this.message = "succesfull load files on server! c: -- ";
+
+          }
+          return
         })
-        .then((scripts) => {
-          this.scriptsInfos = scripts.data;
-        })
-        .catch(() => {
+        .catch((error) => {
           this.progressInfos[idx].percentage = 0;
-          this.message = "Could not upload the file:" + script.name;
+          this.message = "sorry! could not upload the file... Reason: " + error.message;
         });
     },
     // calling when component adding to DOM

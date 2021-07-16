@@ -1,10 +1,9 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: pv-backend
+  name: back
   labels:
     app: tf-backend
-    purpose: backend
 spec:
   replicas: 2
   selector:
@@ -20,14 +19,15 @@ spec:
       containers:
       - name: backend
         image: sintaxiz/tf-backend
+        env:
+        - name: TF_MANAGER_HOST
+          valueFrom:
+            configMapKeyRef:
+                name: back
+                key: tf-man-host
         volumeMounts:
         - name: script-volume
-          mountPath: "/scripts"
-      - name: manager
-        image: sintaxiz/tf-manager
-        volumeMounts:
-        - name: script-volume
-          mountPath: "/scripts"
+          mountPath: "/app/temp-scripts"
       volumes:
       - name: script-volume
         persistentVolumeClaim:

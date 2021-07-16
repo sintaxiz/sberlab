@@ -30,7 +30,7 @@ func NewSampleAPI() *SampleAPI {
 func (api *SampleAPI) Register(wsContainer *restful.Container, insecure bool) error {
 	wsContainer.Filter(corsFilter)
 
-	validate.NewResource().Register(wsContainer)
+	validate.NewResource(os.Getenv("TF_MANAGER_HOST")).Register(wsContainer)
 	upload.NewResource().Register(wsContainer)
 
 	return nil

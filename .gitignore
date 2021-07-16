@@ -8,16 +8,12 @@ terraformAPI/temp-scripts
 yandex-tank-load-test/logs
 yandex-tank-load-test/upload-post-test.yaml
 yandex-tank-load-test/token.txt
-terraform-main-infrastracture/terraform.tfstate
-terraform-main-infrastracture/terraform.tfstate.backup
 terraformAPI/terraformAPI
 tmp/script.py
 yandex-tank-load-test/ammo.stpd
 yandex-tank-load-test/ammo.stpd_si.json
 yandex-tank-load-test/jobno_file.txt
 yandex-tank-load-test/tank_errors.log
-terraform-main-infrastracture/terraform.tfstate
-terraform-main-infrastracture/terraform.tfstate.backup
 terraformAPI/terraformAPI
 terraform-frontend/.env
 samples/cobra-sample/cloudmanager
@@ -27,3 +23,5 @@ terraform-backend/terraformAPI
 terraform-manager/terraformManager
 terraform-manager/test/terraform
 terraform-backend/temp-scripts
+terraform-main-infrastracture/terraform.tfstate
+terraform-main-infrastracture/terraform.tfstate.backup

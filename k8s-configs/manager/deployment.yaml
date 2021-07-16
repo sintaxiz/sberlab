@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tf-manager
+  labels:
+    app: tf-manager
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tf-manager
+  template:
+    metadata:
+      labels:
+        app: tf-manager
+    spec:
+      containers:
+      - name: frontend
+        image: sintaxiz/tf-manager

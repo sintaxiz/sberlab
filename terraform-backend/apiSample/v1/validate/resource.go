@@ -12,11 +12,13 @@ import (
 var logger = loggo.GetLogger("validate")
 
 type Resource struct {
+	tfHostname string
 }
 
-func NewResource() *Resource {
+func NewResource(hostname string) *Resource {
 	logger.SetLogLevel(loggo.INFO)
-	return &Resource{}
+	logger.Infof("Creating new resource for validate with hostname=%s....", hostname)
+	return &Resource{hostname}
 }
 
 func (r *Resource) Register(container *restful.Container) *Resource {
@@ -42,7 +44,7 @@ func (c *Resource) GetV1(request *restful.Request, response *restful.Response) {
 
 func (c *Resource) Validate(request *restful.Request, response *restful.Response) {
 	r := strings.NewReader("{\"configtext\": \"\"}")
-	resp, err := http.Post("http://localhost:9900/validate", "application/json", r)
+	resp, err := http.Post(c.tfHostname+"/validate", "application/json", r)
 	if err != nil {
 		logger.Errorf("Error while validating. Can not receive response from terraformManager. Reason: " + err.Error())
 		return

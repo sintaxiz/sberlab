@@ -41,14 +41,6 @@ resource "sbercloud_nat_dnat_rule" "dnat_01" {
   external_service_port = 22
 }
 
-resource "sbercloud_nat_dnat_rule" "dnat_02" {
-  floating_ip_id = sbercloud_vpc_eip.nat_eip.id
-  nat_gateway_id = sbercloud_nat_gateway.nat_01.id
-  private_ip = sbercloud_compute_instance.ecs_master.access_ip_v4
-  protocol = "tcp"
-  internal_service_port = var.serverPort
-  external_service_port = 80
-}
 resource "sbercloud_nat_dnat_rule" "dnat_for_kuberctl" {
   floating_ip_id = sbercloud_vpc_eip.nat_eip.id
   nat_gateway_id = sbercloud_nat_gateway.nat_01.id
@@ -67,13 +59,13 @@ resource "sbercloud_nat_dnat_rule" "dnat_for_kuberapi" {
   external_service_port = 11251
 }
 
-resource "sbercloud_nat_dnat_rule" "dnat_for_nodeport_service" {
+resource "sbercloud_nat_dnat_rule" "dnat_for_nodeport_frontend" {
   floating_ip_id = sbercloud_vpc_eip.nat_eip.id
   nat_gateway_id = sbercloud_nat_gateway.nat_01.id
   private_ip = sbercloud_compute_instance.ecs_master.access_ip_v4
   protocol = "tcp"
   internal_service_port = 31234
-  external_service_port = 31234
+  external_service_port = 80
 }
 
 resource "sbercloud_nat_dnat_rule" "dnat_for_nodeport_backend" {

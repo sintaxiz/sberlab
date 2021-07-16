@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: back
+data:
+  tf-man-host: "http://178.170.195.175:8080"
+         

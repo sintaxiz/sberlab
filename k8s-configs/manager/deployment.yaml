@@ -17,3 +17,6 @@ spec:
       containers:
       - name: frontend
         image: sintaxiz/tf-manager
+        imagePullPolicy: Always
+
+       

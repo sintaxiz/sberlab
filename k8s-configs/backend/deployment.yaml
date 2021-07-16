@@ -19,6 +19,7 @@ spec:
       containers:
       - name: backend
         image: sintaxiz/tf-backend
+        imagePullPolicy: Always
         env:
         - name: TF_MANAGER_HOST
           valueFrom:

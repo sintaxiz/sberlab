@@ -3,12 +3,12 @@ overload:
   package: yandextank.plugins.DataUploader
   token_file: "token.txt"
 phantom:
-  address: 178.170.195.175:80
+  address: 178.170.195.175:8080 # [Target's address]:[target's port]
   uris:
-    - "/"
+    - "/upload"
   load_profile:
     load_type: rps # schedule load by defining requests per second
-    schedule: line(1, 10, 10)
+    schedule: line(500, 1000, 1m)
 console:
   enabled: true # enable console output
 telegraf:

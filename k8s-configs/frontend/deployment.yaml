@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-deployment
+  name: front
   labels:
     app: tf-frontend
 spec:
@@ -17,6 +17,7 @@ spec:
       containers:
       - name: frontend
         image: sintaxiz/tf-frontend
+        imagePullPolicy: Always
         env:
         - name: API_BASE_URL
           valueFrom:

@@ -13,6 +13,9 @@ class UploadScriptsService {
       onUploadProgress
     });
   }
+  uploadInfo() {
+    return http.get("/upload");
+  }
 }
 
 export default new UploadScriptsService();

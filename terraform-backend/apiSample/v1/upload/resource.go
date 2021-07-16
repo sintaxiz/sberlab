@@ -3,10 +3,13 @@ package upload
 import (
 	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/emicklei/go-restful"
 	"github.com/juju/loggo"
 )
+
+var files map[string]int
 
 var logger = loggo.GetLogger("upload")
 
@@ -23,12 +26,27 @@ func (r *Resource) Register(container *restful.Container) *Resource {
 
 	ws.Route(ws.POST("/upload").To(r.UploadScript).Operation("uploadScript"))
 
+	ws.Route(ws.GET("/upload").To(r.UploadInfo).Operation("uploadInfo"))
+
 	container.Add(ws)
 	return r
 }
 
+func (r *Resource) UploadInfo(request *restful.Request, response *restful.Response) {
+	logger.Infof("Received new upload info request")
+	tempScriptsFolder, err := os.Open("temp-scripts")
+	if err != nil {
+		logger.Warningf("Can not open folder with files")
+	}
+	defer tempScriptsFolder.Close()
+
+	fileList, _ := tempScriptsFolder.Readdirnames(0)
+	response.WriteAsJson(fileList)
+	response.WriteHeader(http.StatusOK)
+}
+
 func (r *Resource) UploadScript(request *restful.Request, response *restful.Response) {
-	logger.Infof("Received new script")
+	logger.Infof("Received new file")
 
 	request.Request.ParseMultipartForm(10 << 20) // file can be not more than 10mb
 	file, handler, err := request.Request.FormFile("myScript")
@@ -58,4 +76,7 @@ func (r *Resource) UploadScript(request *restful.Request, response *restful.Resp
 
 	// form response
 	response.WriteHeaderAndEntity(http.StatusOK, "Script successfully loaded: "+handler.Filename)
+
+	// store data about file size
+	files[handler.Filename] = int(handler.Size)
 }

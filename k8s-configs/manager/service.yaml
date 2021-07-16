@@ -6,5 +6,5 @@ spec:
   selector:
     app: tf-manager
   ports:
-    - port: 990
+    - port: 80
       targetPort: 9900

@@ -1,11 +1,13 @@
-395
+407
 POST /upload HTTP/1.0
-Content-Length:247
-Content-Type: multipart/form-data; boundary=-----------------------------120704167938135925063294224361----
------------------------------120704167938135925063294224361
-Content-Disposition: form-data; name="myScript"; filename="myFile"
+Content-Type: multipart/form-data; boundary=---------------------------295405739815855954582820795869
+Content-Length: 250
+Connection: close
+
+-----------------------------295405739815855954582820795869
+Content-Disposition: form-data; name="myScript"; filename="file"
 Content-Type: application/octet-stream
 
-helllllllo
+hi im test file
 
------------------------------120704167938135925063294224361----
+-----------------------------295405739815855954582820795869--

@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: back
 data:
-  tf-man-host: "http://178.170.195.175:8080"
+  tf-man-host: "http://tf-manager"
          

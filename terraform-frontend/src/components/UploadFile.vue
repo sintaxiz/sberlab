@@ -36,18 +36,11 @@
         </li>
       </ul>
     </div>
-<!-- 
-    <div class="card">
-      <div class="card-header">List of Files</div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"
-          v-for="(file, index) in fileInfos"
-          :key="index"
-        >
-          <a :href="file.url">{{ file.name }}</a>
-        </li>
-      </ul>
-    </div> -->
+
+      <div class="mb-5"> 
+      <button type="button" class="btn btn-warning btn-lg px-4  "  v-on:click="uploadInfo"> What files are there on the server? </button> 
+      </div>
+    <p class="text-left"> {{fileNames}} </p>
   </div>
 </template>
 
@@ -64,9 +57,19 @@ export default {
       progressInfos: [],
       message: "",
       scriptInfos: [],
+      fileNames: ""
     };
   },
   methods: {
+   uploadInfo() {
+     UploadService.uploadInfo()
+     .then((response) => {
+       this.fileNames = response.data
+     })
+     .catch((error) => {
+          this.fileNames = "sorry! could not upload file names... Reason: " + error.message;
+        });
+   },
    selectFile() {
       this.progressInfos = [];
       this.selectedScripts = event.target.files;
@@ -90,7 +93,6 @@ export default {
 
           } else {
           this.message = "succesfull load files on server! c: -- ";
-
           }
           return
         })
